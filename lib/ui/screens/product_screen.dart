@@ -9,7 +9,10 @@ import '../widgets/app_drawer.dart';
 import 'product_detail_screen.dart';
 
 class ProductScreen extends StatefulWidget {
-  const ProductScreen({super.key});
+  final String? companyId;
+  final String? companyName;
+
+  const ProductScreen({super.key, this.companyId, this.companyName});
 
   @override
   State<ProductScreen> createState() => _ProductScreenState();
@@ -23,12 +26,12 @@ class _ProductScreenState extends State<ProductScreen> {
   @override
   void initState() {
     super.initState();
-    _productsFuture = _productService.getProducts();
+    _productsFuture = _productService.getProducts(companyId: widget.companyId);
   }
 
   Future<void> _refresh() async {
     setState(() {
-      _productsFuture = _productService.getProducts();
+      _productsFuture = _productService.getProducts(companyId: widget.companyId);
     });
     await _productsFuture;
   }
@@ -37,7 +40,7 @@ class _ProductScreenState extends State<ProductScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),
-      appBar: const CustomAppBar(title: 'Products'),
+      appBar: CustomAppBar(title: widget.companyName ?? 'Products'),
       drawer: const AppDrawer(),
       body: Column(
         children: [
@@ -82,12 +85,27 @@ class _ProductScreenState extends State<ProductScreen> {
                 }
 
                 final products = snapshot.data!;
-                final filtered = _query.isEmpty
-                    ? products
-                    : products.where((p) {
-                        final hay = '${p.name} ${p.sku} ${p.summary ?? ''}'.toLowerCase();
-                        return hay.contains(_query);
-                      }).toList();
+                List<Product> filtered = products;
+
+                if (_query.isNotEmpty) {
+                  filtered = filtered.where((p) {
+                    final hay = '${p.name} ${p.sku} ${p.summary ?? ''}'.toLowerCase();
+                    return hay.contains(_query);
+                  }).toList();
+                }
+
+                if (filtered.isEmpty) {
+                  return RefreshIndicator(
+                    onRefresh: _refresh,
+                    child: ListView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      children: const [
+                        SizedBox(height: 120),
+                        Center(child: Text('No Products found', style: TextStyle(color: AppTheme.textSecondary))),
+                      ],
+                    ),
+                  );
+                }
 
                 return RefreshIndicator(
                   onRefresh: _refresh,

@@ -5,6 +5,7 @@ import '../../services/master_service.dart';
 
 import '../widgets/custom_app_bar.dart';
 import '../widgets/app_drawer.dart';
+import 'product_screen.dart';
 
 class IndustryScreen extends StatefulWidget {
   const IndustryScreen({super.key});
@@ -102,7 +103,12 @@ class _IndustryScreenState extends State<IndustryScreen> {
                         ),
                         trailing: const Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
                         onTap: () {
-                          // Navigate to products filtered by company/industry
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => ProductScreen(companyId: company.id, companyName: company.name),
+                            ),
+                          );
                         },
                       ),
                     );

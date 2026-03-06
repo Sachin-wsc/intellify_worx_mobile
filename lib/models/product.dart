@@ -6,6 +6,7 @@ class Product {
   final String? summary;
   final String? documentUrl;
   final List<String> images;
+  final String? companyId;
   final String? companyName;
   final String? motorTypeName;
   final Map<String, dynamic>? specs;
@@ -17,6 +18,7 @@ class Product {
     this.summary,
     this.documentUrl,
     required this.images,
+    this.companyId,
     this.companyName,
     this.motorTypeName,
     this.specs,
@@ -64,6 +66,7 @@ class Product {
       summary: readNullableString(json['summary'] ?? json['description']),
       documentUrl: readNullableString(json['documentUrl'] ?? json['document_url']),
       images: parsedImages,
+      companyId: readNullableString(json['companyId'] ?? json['company_id']),
       companyName: readNullableString(json['companyName']),
       motorTypeName: readNullableString(json['motorTypeName']),
       specs: json['specs'] != null ? Map<String, dynamic>.from(json['specs']) : null,

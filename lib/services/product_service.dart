@@ -6,9 +6,10 @@ import 'api_service.dart';
 class ProductService {
   final Dio _dio = ApiService().dio;
 
-  Future<List<Product>> getProducts() async {
+  Future<List<Product>> getProducts({String? companyId}) async {
     try {
-      final response = await _dio.get('/products');
+      final String endpoint = companyId != null ? '/products?companyId=$companyId' : '/products';
+      final response = await _dio.get(endpoint);
       if (response.statusCode == 200 && response.data != null) {
         final List<dynamic> data = response.data as List<dynamic>;
         return data.map((json) => Product.fromJson(json)).toList();
