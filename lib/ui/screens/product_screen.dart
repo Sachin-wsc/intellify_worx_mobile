@@ -6,6 +6,7 @@ import '../../services/product_service.dart';
 
 import '../widgets/custom_app_bar.dart';
 import '../widgets/app_drawer.dart';
+import 'product_detail_screen.dart';
 
 class ProductScreen extends StatefulWidget {
   const ProductScreen({super.key});
@@ -160,7 +161,12 @@ class _ProductScreenState extends State<ProductScreen> {
         ),
         trailing: const Icon(Icons.chevron_right, color: Color(0xFF9CA3AF)),
         onTap: () {
-          // Future: Navigate to Product Detail
+          Navigator.push(
+            context,
+            MaterialPageRoute(
+              builder: (context) => ProductDetailScreen(product: product),
+            ),
+          );
         },
       ),
     );

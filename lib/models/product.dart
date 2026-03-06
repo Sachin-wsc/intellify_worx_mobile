@@ -4,14 +4,22 @@ class Product {
   final String name;
   final String sku;
   final String? summary;
+  final String? documentUrl;
   final List<String> images;
+  final String? companyName;
+  final String? motorTypeName;
+  final Map<String, dynamic>? specs;
 
   Product({
     required this.id,
     required this.name,
     required this.sku,
     this.summary,
+    this.documentUrl,
     required this.images,
+    this.companyName,
+    this.motorTypeName,
+    this.specs,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -54,7 +62,11 @@ class Product {
       name: readString(json['name'] ?? json['title']),
       sku: readString(json['sku'] ?? json['code']),
       summary: readNullableString(json['summary'] ?? json['description']),
+      documentUrl: readNullableString(json['documentUrl'] ?? json['document_url']),
       images: parsedImages,
+      companyName: readNullableString(json['companyName']),
+      motorTypeName: readNullableString(json['motorTypeName']),
+      specs: json['specs'] != null ? Map<String, dynamic>.from(json['specs']) : null,
     );
   }
 }

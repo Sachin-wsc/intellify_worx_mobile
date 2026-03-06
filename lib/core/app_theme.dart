@@ -74,6 +74,30 @@ class AppTheme {
         labelStyle: const TextStyle(color: textSecondary),
         hintStyle: const TextStyle(color: textSecondary),
       ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        inputDecorationTheme: InputDecorationTheme(
+          filled: true,
+          fillColor: surfaceWhite,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(cornerRadius),
+            borderSide: const BorderSide(color: borderInactive),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(cornerRadius),
+            borderSide: const BorderSide(color: borderInactive),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(cornerRadius),
+            borderSide: const BorderSide(color: primaryBlue, width: 2),
+          ),
+        ),
+        menuStyle: MenuStyle(
+          backgroundColor: MaterialStateProperty.all(surfaceWhite),
+          surfaceTintColor: MaterialStateProperty.all(Colors.transparent),
+          elevation: MaterialStateProperty.all(4.0),
+        ),
+      ),
     );
   }
 }

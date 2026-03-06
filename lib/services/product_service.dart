@@ -19,4 +19,17 @@ class ProductService {
       throw Exception('Failed to load products');
     }
   }
+
+  Future<Product?> getProductDetails(String id) async {
+    try {
+      final response = await _dio.get('/products/$id');
+      if (response.statusCode == 200 && response.data != null) {
+        return Product.fromJson(response.data);
+      }
+      return null;
+    } catch (e) {
+      debugPrint('Error fetching product details: $e');
+      throw Exception('Failed to load product details');
+    }
+  }
 }
