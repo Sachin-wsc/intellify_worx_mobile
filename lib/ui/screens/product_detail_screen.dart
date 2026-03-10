@@ -4,6 +4,9 @@ import '../../models/product.dart';
 import '../../services/product_service.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../widgets/custom_app_bar.dart';
+import '../widgets/app_drawer.dart';
+
 class ProductDetailScreen extends StatefulWidget {
   final Product product;
 
@@ -77,12 +80,8 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
 
     return Scaffold(
       backgroundColor: const Color(0xFFF9FAFB),
-      appBar: AppBar(
-        title: Text(p.name, style: const TextStyle(fontWeight: FontWeight.w600)),
-        backgroundColor: Colors.white,
-        foregroundColor: const Color(0xFF1F2937),
-        elevation: 0,
-      ),
+      appBar: CustomAppBar(title: p.name),
+      drawer: const AppDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
