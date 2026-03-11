@@ -156,6 +156,13 @@ class _ProductScreenState extends State<ProductScreen> {
               : Image.network(
                   imageUrl,
                   fit: BoxFit.contain,
+                  loadingBuilder: (context, child, loadingProgress) {
+                    if (loadingProgress == null) return child;
+                    return Container(
+                      color: const Color(0xFFF3F4F6),
+                      child: const Center(child: CircularProgressIndicator()),
+                    );
+                  },
                   errorBuilder: (context, error, stackTrace) {
                     return Container(
                       color: const Color(0xFFF3F4F6),

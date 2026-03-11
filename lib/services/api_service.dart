@@ -10,7 +10,7 @@ class ApiService {
   }
 
   ApiService._internal() {
-    final baseUrl = dotenv.env['API_BASE_URL'] ?? 'http://192.168.1.27:3000/api/v1';
+    final baseUrl = dotenv.env['API_BASE_URL'] ?? 'http://intellify.weservecodes.com/api/v1';
     _dio = Dio(BaseOptions(
       baseUrl: baseUrl,
       connectTimeout: const Duration(seconds: 10),
